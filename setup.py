@@ -6,32 +6,32 @@ from setuptools import setup, find_packages
 from setuptools.command.test import test as TestCommand
 
 
-NAME = 'eip712-structs'
-VERSION = '1001.1.0'
+NAME = "eip712-structs"
+VERSION = "1002.0.0"
 
 install_requirements = [
-    'eth-utils>=1.4.0',
-    'pysha3>=1.0.2',
+    "eth-utils>=4.0.0",
+    "safe-pysha3>=1.0.4",
 ]
 
 test_requirements = [
-    'coveralls>=1.8.0',
-    'pytest==6.2.5',
-    'pytest-cov==4.0.0',
-    'web3==5.31.3',
+    "coveralls>=3.3.1",
+    "pytest>=8.1.1",
+    "pytest-cov>=5.0.0",
+    "web3>=6.15.1",
 ]
 
 
 def get_file_text(filename):
     file_path = Path(__file__).parent / filename
     if not file_path.exists():
-        return ''
+        return ""
     else:
         file_text = file_path.read_text().strip()
         return file_text
 
 
-long_description = get_file_text('README.md')
+long_description = get_file_text("README.md")
 
 
 class PyTest(TestCommand):
@@ -50,7 +50,7 @@ class PyTest(TestCommand):
 
 
 class CoverallsCommand(TestCommand):
-    description = 'Run the coveralls command'
+    description = "Run the coveralls command"
     user_options = [("coveralls-args=", "a", "Arguments to pass to coveralls")]
 
     def initialize_options(self):
@@ -59,6 +59,7 @@ class CoverallsCommand(TestCommand):
 
     def run_tests(self):
         import coveralls.cli
+
         errno = coveralls.cli.main(shlex.split(self.coveralls_args))
         sys.exit(errno)
 
@@ -66,7 +67,7 @@ class CoverallsCommand(TestCommand):
 setup(
     name=NAME,
     version=VERSION,
-    author='AJ Grubbs',
+    author="AJ Grubbs",
     packages=find_packages(),
     install_requires=install_requirements,
     tests_require=test_requirements,
@@ -77,10 +78,10 @@ setup(
         "test": PyTest,
         "coveralls": CoverallsCommand,
     },
-    description='A python library for EIP712 objects',
+    description="A python library for EIP712 objects",
     long_description=long_description,
-    long_description_content_type='text/markdown',
-    license='MIT',
-    keywords='ethereum eip712 solidity',
-    url='https://github.com/ConsenSys/py-eip712-structs',
+    long_description_content_type="text/markdown",
+    license="MIT",
+    keywords="ethereum eip712 solidity",
+    url="https://github.com/ConsenSys/py-eip712-structs",
 )
